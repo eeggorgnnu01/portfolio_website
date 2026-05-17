@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Underwater Dehazing | George Gunn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --border: #e5e5e5;
+      --accent: #1f4f46;
+      --max-width: 900px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: 90%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(247,247,245,0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 0;
+    }
+
+    .logo {
+      font-weight: 700;
+    }
+
+    .back-link {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .linkedin-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 4px;
+      background: var(--text);
+      color: var(--surface);
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    main {
+      padding: 5rem 0;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      margin-bottom: 1.25rem;
+    }
+
+    .summary {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin-bottom: 3rem;
+    }
+
+    .project-image {
+      height: 500px;
+      background: #e8e8e6;
+      border: 1px dashed #cfcfcf;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999999;
+      margin-bottom: 3rem;
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .body-image {
+      display: flex;
+      justify-content: center;
+      margin: 2rem auto;
+    }
+
+    .body-image img {
+      width: min(100%, 560px);
+      height: auto;
+      border: 1px dashed #cfcfcf;
+      border-radius: 8px;
+    }
+
+    .tracked-feature-images {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .tracked-feature-images img {
+      width: min(100%, 560px);
+      max-width: 100%;
+      height: auto;
+    }
+
+    .body-image {
+      width: 70%;
+      height: 70%;
+      object-fit: cover;
+      object-position: center;
+      align-items: center;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .overview-section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    @media (max-width: 760px) {
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="logo" href="../index.html">George Gunn</a>
+        <div class="nav-actions">
+          <a class="back-link" href="../index.html#projects">Back to projects</a>
+          <a class="linkedin-icon" href="https://www.linkedin.com/in/george-gunn-design-engineer/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="eyebrow">Personal Project</div>
+      <h1>ML for Real-time Underwater Video Dehazing</h1>
+      
+
+      <div class="project-image">
+        <img src="../imgs/dehaze_cover.png" alt="Underwater dehazing project cover">
+      </div>
+
+      <section class="overview-section">
+        <h2>Overview</h2>
+        <p>
+        My Masters thesis covered the development of CNNs to dehaze underwater video in real time, leveraging the polarisation properties of the scattered light to enhance image reconstruction.
+        I built a small experimental imaging setup, captured a polarimetric dataset under controlled turbidity conditions, and used a physics-based dehazing method to generate synthetic clear images for supervised training without requiring paired real-world data.
+        </p>
+        <p>
+          The trained models significantly improved image quality across turbidity levels, improving the visible range by up to 44%. These quality enhancements led to improvements in stable freature tracking, where raw images completely failed. GPU inference ran at over 180 fps compared to the algorithmic 1.6 fps. This combined with the improvements in feature tracking demonstrate the methods potential for use in SLAM systems on AUVs in the field.
+        </P>
+      </section>
+
+      <div class="Container">
+        <h2> Why? </h2>
+        <p>Underwater robotic systems are incredibly useful, but sophisticated operation of ROVs & AUVs around subsea infrastructure has, to date, still relied heavily on human pilots. 
+          Visual SLAM has shown promise as a route toward greater autonomy, however turbidity rapidly degrades image quality and makes reliable feature tracking extremely difficult. 
+          I wanted to investigate whether machine learning techniques could recover enough visual information to meaningfully improve SLAM performance in poor underwater conditions.
+        </p>
+        <br>
+        <h2>Why Polarisation? </h2>
+        <p>
+          When light is scattered underwater, its polarisation state is altered. This polarimetric behaviour encodes information about the path the light took before reaching the camera sensor, making it possible (although difficult) to separate haze from useful scene detail. Traditional polarimetric dehazing methods relied heavily on manual parameter estimation and were computationally expensive. More recent deep learning approaches improved reconstruction quality, but largely depended on supervised learning with paired datasets, something almost impossible to collect at scale in representative underwater environments.
+          <br>
+          <br>
+          My approach was to use an existing algorithmic dehazing method on hazy polarimetric images to generate a synthetic ‘clear’ ground truth for training. This broke the dependency on paired datasets entirely, creating a training pipeline that could realistically scale to real oceanic data and opening a credible path toward deployment on autonomous underwater vehicles.
+        </p>
+      <div class = "body-image">
+        <img src="../imgs/dehaze_diagram.png">
+      </div>
+        <br>
+        <h2>Creating the Dataset</h2>
+        <p>I built a small experimental imaging setup in the lab (my student bedroom), using a fish tank with varying concentrations of milk as a turbidifying agent to emulate underwater scattering. A range of objects, materials, and textures were imaged while rotating a linear polarising filter through 0°, 45°, 90° and 135° before rearranging the scene and repeating the process. Basic augmentation techniques were then applied to expand the dataset, producing a total of 1,440 four-channel polarimetric training images.</p>
+      </div>
+      <div class = "body-image">
+        <img src="../imgs/setup_diagram.png">
+      </div>
+
+      <h2>Results</h2>
+      <p>
+        Several lightweight UNet variants were trained using the synthetic paired dataset. Multiple loss functions were tested, including a 'hybrid' loss which combined pixelwise error with a structural similarity score. These models were tested on a series of benchmark scenes, containing objects not seen in the training data. 
+      </p>
+
+      <div class="body-image">
+        <img src="../imgs/validation scenes.png" alt="Figure 4.7 placeholder">
+      </div>
+
+      <p>
+        The reconstructed images showed a substantial improvement in contrast, edge definition, and fine detail across increasing turbidity levels. Features almost entirely obscured in the raw imagery became visible again, particularly around textured surfaces and object boundaries.
+      </p>
+
+      <div class="body-image">
+        <img src="../imgs/Ssim psnr img.png" alt="Figure 4.5 placeholder">
+      </div>
+
+      <p>
+        To quantify this, effective visibility was measured using the maximum identifiable range of benchmark markers within the scene. At the highest turbidity concentrations tested, the dehazed outputs improved effective visibility by up to 44%. The UNet trained with the hybrid loss function produced the best image reconstructions, with the full 'A - E' visible compare to the 'A, B' in the raw image. 
+      </p>
+
+      <div class="body-image">
+        <img src="../imgs/Lego brick haze vis fig.png" alt="Figure 4.5 placeholder">
+      </div>
+
+      <p>
+        To assess the dehazing imapct on potential SLAM system perfromance, ORB feature detectors were used to track keypoints between images as the turbidifying agent concentration increased. In heavily turbid scenes, the raw images often failed to retain stable features entirely, while the dehazed outputs recovered dozens of trackable keypoints.
+      </p>
+
+      <div class="body-image tracked-feature-images">
+        <img src="../imgs/tracked features demo.png" alt="Figure 4.5 placeholder">
+        <img src="../imgs/tracked feat c.png" alt="Figure 4.5 placeholder">
+      </div>
+
+      <p>
+        Runtime performance was equally significant. Traditional algorithmic methods operated at roughly 1.6 Hz, while GPU accelerated neural inference achieved between 177-304 Hz on an Nvidia GTX1660-ti, comfortably exceeding the update rates required for real-time SLAM systems.
+      </p>
+
+    </div>
+
+
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div>
+        <strong>George Gunn</strong><br>
+        <a href="../index.html#contact">Contact</a>
+      </div>
+      <a class="linkedin-icon" href="https://www.linkedin.com/in/george-gunn-design-engineer/" target="_blank" rel="noreferrer" aria-label="LinkedIn">in</a>
+    </div>
+  </footer>
+</body>
+</html>
